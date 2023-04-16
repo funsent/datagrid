@@ -1,7 +1,7 @@
 
 # datagrid
 
-一款javascript实现的datagrid数据表格插件
+> javascript实现的数据表格插件
 
 ## 说在前面
 
