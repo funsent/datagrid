@@ -1,0 +1,104 @@
+
+.pagination {
+    font-size: 14px;
+    overflow: hidden;
+    user-select: none;
+    /* padding: 10px 0 0 0; */
+}
+
+.pagination label {
+    vertical-align: middle;
+}
+
+.pagination>.pagination-btns {
+    float: left;
+    display: block;
+}
+
+.pagination>.pagination-btns>a {
+    float: left;
+    display: block;
+    z-index: 1;
+    position: relative;
+    min-width: 16px;
+    height: 26px;
+    line-height: 26px;
+    margin-left: -1px;
+    padding: 5px 10px;
+    color: #777;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pagination>.pagination-btns>a::before,
+.pagination>.pagination-btns>a::after {
+    content: '';
+    height: 0;
+}
+
+.pagination>.pagination-btns>a:first-child {
+    margin-left: 0;
+}
+
+.pagination>.pagination-btns>a.first,
+.pagination>.pagination-btns>a.prev,
+.pagination>.pagination-btns>a.next,
+.pagination>.pagination-btns>a.last {
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.pagination>.pagination-btns>a:hover,
+.pagination>.pagination-btns>a.activated {
+    z-index: 2;
+    color: #06f;
+    background-color: #f4f9ff;
+    border-color: #06f;
+}
+
+.pagination>.pagination-btns>a.disabled {
+    z-index: 1;
+    cursor: not-allowed;
+    color: #d9d9d9;
+    background-color: #fff;
+    border-color: #d9d9d9;
+}
+
+.pagination>.pagination-goto,
+.pagination>.pagination-info {
+    float: left;
+    display: block;
+    color: #7f7f7f;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    height: 26px;
+    line-height: 24px;
+    padding: 5px 15px;
+    margin-left: -1px;
+}
+
+.pagination>.pagination-goto>input {
+    margin: 0 3px;
+    padding: 2px;
+    width: 36px;
+    height: 16px;
+    color: #7f7f7f;
+    border: 1px solid #d9d9d9;
+    text-align: center;
+    border-radius: 1px;
+    outline: none;
+    appearance: none;
+}
+
+.pagination>.pagination-goto>input:focus {
+    color: #06f;
+    background-color: #f4f9ff;
+    border-color: #06f;
+}
+
+.pagination>.pagination-info {
+    background-color: #fbfbfb;
+}

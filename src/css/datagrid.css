@@ -1,0 +1,419 @@
+/**
+ * 一款原生javascript实现的datagrid数据表格插件
+ * 
+ * @package  funsent
+ * @link     http://www.funsent.com/
+ * @license  https://opensource.org/licenses/MIT/
+ * @author   yanggf <2018708@qq.com>
+ * @version  v0.1.3
+ */
+
+.datagrid {
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.datagrid>.datagrid-title {
+    position: relative;
+    margin: 0;
+    padding: 0 0 20px 0;
+}
+
+.datagrid>.datagrid-title>h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.datagrid>.datagrid-head {
+    height: 32px;
+    margin:0 0 10px;
+}
+
+/* 按钮组 */
+.datagrid>.datagrid-head>.datagrid-toolbar {
+    float: left;
+    vertical-align: top;
+}
+
+.datagrid>.datagrid-head>.datagrid-toolbar>button.datagrid-toolbar-btn {
+    z-index: 1;
+    position: relative;
+    float: left;
+    display: block;
+    margin-left: -1px;
+    padding-left: 10px;
+    padding-right: 14px;
+    height: 32px;
+    line-height: 16px;
+    font-size: 14px;
+    color: #111;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 0;
+    outline: none;
+}
+
+.datagrid>.datagrid-head>.datagrid-toolbar>button.datagrid-toolbar-btn:hover {
+    z-index: 2;
+    color: #06f;
+    background-color: #f4f9ff;
+    border-color: #06f;
+    cursor: pointer;
+}
+
+.datagrid>.datagrid-head>.datagrid-toolbar>button.datagrid-toolbar-btn.disabled {
+    color: #d2d2d2;
+    background-color: #fff;
+    border-color: #d9d9d9;
+    cursor: not-allowed;
+}
+
+.datagrid>.datagrid-head>.datagrid-toolbar>button.datagrid-toolbar-btn.disabled:active {
+    top: 0;
+    left: 0;
+}
+
+.datagrid>.datagrid-head>.datagrid-toolbar>button.datagrid-toolbar-btn:first-child {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.datagrid>.datagrid-head>.datagrid-toolbar>button.datagrid-toolbar-btn:last-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.datagrid>.datagrid-head>.datagrid-searchbar {
+    float: right;
+    vertical-align: top;
+}
+
+.datagrid>.datagrid-head>.datagrid-searchbar>form {
+    height: 32px;
+}
+
+.datagrid>.datagrid-head>.datagrid-searchbar>form>span {
+    display: inline-block;
+    overflow: hidden;
+    margin-left: 5px;
+}
+
+.datagrid>.datagrid-head>.datagrid-searchbar>form>span>input,
+.datagrid>.datagrid-head>.datagrid-searchbar>form>span>select {
+    height: 18px;
+    line-height: 18px;
+    z-index: 1;
+    position: relative;
+    padding: 6px;
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+    vertical-align: middle;
+    outline: none;
+}
+
+.datagrid>.datagrid-head>.datagrid-searchbar>form>span>select {
+    height: 32px;
+    padding-right: 18px;
+}
+
+.datagrid>.datagrid-head>.datagrid-searchbar>form>span>input:focus,
+.datagrid>.datagrid-head>.datagrid-searchbar>form>span>select:focus {
+    z-index: 2;
+    color: #06f;
+    background-color: #f4f9ff;
+    border-color: #06f;
+}
+
+.datagrid>.datagrid-head>.datagrid-searchbar>form>span>button {
+    z-index: 1;
+    position: relative;
+    line-height: 16px;
+    font-size: 14px;
+    cursor: default;
+    height: 32px;
+    padding-left: 10px;
+    padding-right: 14px;
+    border: 0;
+    text-align: center;
+    color: #fff;
+    font-weight: 500;
+    background-color: #06f;
+    vertical-align: middle;
+    outline: none;
+}
+
+.datagrid>.datagrid-body {
+    clear: both;
+}
+
+.datagrid>.datagrid-foot {
+    padding-top: 10px;
+}
+
+/* table */
+.datagrid-datatable {
+    width: auto;
+    border: 1px solid #d9d9d9;
+    background-color: transparent;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper {
+    width: auto;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    background-color: #fcfcfc;
+    overflow: auto;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table {
+    table-layout: fixed;
+    width: auto;
+    margin-top: -1px;
+    margin-left: -1px;
+    box-shadow: 0 0 2px 0 #ccc;
+    background-color: #fff;
+    white-space: nowrap;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table a::after {
+    transform: scale3d(1, 1, 1);
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>thead>tr>th,
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td,
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tfoot>tr>td {
+    border-style: solid;
+    border-color: #d9d9d9;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>thead>tr>th {
+    color: #333;
+    font-weight: 550;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    background-color: #f5f5f5;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td,
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tfoot>tr>td {
+    color: #555;
+    padding: 12px;
+    overflow: hidden;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>thead>tr>th>div.checkbox,
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td>div.checkbox {
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>thead>tr>th>div.checkbox>input[type="checkbox"],
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td>div.checkbox>input[type="checkbox"] {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>thead>tr>th>div.checkbox>input[type="checkbox"]::before,
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td>div.checkbox>input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #b7b7b7 #d7d7d7 #d7d7d7 #b7b7b7;
+    box-shadow: 0 0 1px 0 #ddd;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>thead>tr>th>div.checkbox>input[type="checkbox"]:checked::before,
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td>div.checkbox>input[type="checkbox"]:checked::before {
+    content: "\2713";
+    font-size: 12px;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    color: #fff;
+    background-color: #06f;
+    border: 1px solid #06f;
+    box-shadow: 0 0 3px 0 #9cf;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr.datagrid-row-even>td {
+    background-color: #f8f8f8;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr.datagrid-row-selected>td,
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr:hover>td {
+    background-color: #EFF8FD;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tfoot {
+    width: auto;
+    position: absolute;
+    bottom: 0;
+}
+
+.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tfoot>tr>td {
+    background-color: #e6e6e6;
+}
+
+/* form */
+.form-table {
+    padding: 20px 20px 10px 10px;
+    background-color: #fff;
+}
+
+.form-table>form>.form-row {
+    padding: 0 0 18px;
+}
+
+.form-table>form>.form-row>.form-col {
+    display: inline-block;
+    line-height: 28px;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-name,
+.form-table>form>.form-row>.form-col>.form-col-item {
+    display: inline-block;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-name {
+    width: 95px;
+    padding-right: 15px;
+    text-align: right;
+    vertical-align: top;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-name>label {
+    display: block;
+    width: 95px;
+    height: 28px;
+    overflow: hidden;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-name>label.require::before {
+    content: '* ';
+    color: #f00;
+    vertical-align: middle;
+    font-family: 'Verdana', 'Arial', 'Sans-Serif';
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item {
+    width: auto;
+    vertical-align: top;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item>input,
+.form-table>form>.form-row>.form-col>.form-col-item>select,
+.form-table>form>.form-row>.form-col>.form-col-item>textarea {
+    width: 168px;
+    color: #555;
+    background-color: #fff;
+    border-color: #d9d9d9;
+    font-size: 14px;
+    font-family: 'Microsoft Yahei', 'Helvetica', 'Arial', 'sans-serif';
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item>input::placeholder {
+    color: #ddd;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item>select {
+    width: 182px;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item>select::placeholder {
+    color: #ddd;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item>textarea {
+    resize: none;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item>textarea::placeholder {
+    color: #ddd;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item>input:focus,
+.form-table>form>.form-row>.form-col>.form-col-item>select:focus,
+.form-table>form>.form-row>.form-col>.form-col-item>textarea:focus {
+    color: #06f;
+    background-color: #f4f9ff;
+    border-color: #06f;
+}
+
+.form-table>form>.form-row>.form-col>.form-col-item>input.disabled,
+.form-table>form>.form-row>.form-col>.form-col-item>select.disabled,
+.form-table>form>.form-row>.form-col>.form-col-item>textarea.disabled {
+    color: #aaa;
+    background-color: #fdfdfd;
+}
+
+.form-table>form>.form-row>.form-col.form-col-middle>.form-col-item>input,
+.form-table>form>.form-row>.form-col.form-col-middle>.form-col-item>textarea {
+    width: 468px;
+}
+
+.form-table>form>.form-row>.form-col.form-col-middle>.form-col-item>select {
+    width: 482px;
+}
+
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>input,
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>textarea {
+    width: 769px;
+}
+
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>select {
+    width: 783px;
+}
+
+.form-table>form>.form-row>.form-col.form-col-middle>.form-col-item>div {
+    width: 480px;
+}
+
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>div {
+    width: 780px;
+}
+
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>.datagrid-datatable>.datagrid-datatable-wrapper {
+    padding-bottom: 20px;
+}
+
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>thead>tr>th,
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td,
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tfoot>tr>td {
+    border-width: 1px;
+    padding: 2px 6px;
+}
+
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td>input:focus,
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td>select:focus,
+.form-table>form>.form-row>.form-col.form-col-large>.form-col-item>.datagrid-datatable>.datagrid-datatable-wrapper>.datagrid-datatable-table>tbody>tr>td>textarea:focus {
+    color: #06f;
+    background-color: #f4f9ff;
+    border-color: #06f;
+}
