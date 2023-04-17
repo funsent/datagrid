@@ -1,5 +1,5 @@
 
-# datagrid
+# funsent-datagrid
 
 > javascript实现的数据表格插件
 
